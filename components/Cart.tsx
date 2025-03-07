@@ -50,31 +50,34 @@ const Cart: React.FC<CartProps> = ({ cart, setCart }) => {
       {cart.length === 0 ? (
         <Text style={styles.emptyCart}>Your cart is empty.</Text>
       ) : (
-        <FlatList
-          data={cart}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.cartItem}>
-              <Image source={item.image} style={styles.image} />
-              <View style={styles.itemDetails}>
-                <Text style={styles.itemText}>{item.name}</Text>
-                <Text style={styles.itemText}> ₱{item.price * item.quantity}</Text>
-              </View>
+<FlatList
+  data={cart}
+  keyExtractor={(item) => item.id}
+  renderItem={({ item }) => (
+    <View style={styles.cartItem}>
+      <Image source={item.image} style={styles.image} />
+      
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemText}>{item.name}</Text>
+        <Text style={styles.itemText}>₱{item.price * item.quantity}</Text>
+      </View>
 
-              <View style={styles.quantityControls}>
-                <TouchableOpacity onPress={() => updateQuantity(item.id, -1)} style={styles.button}>
-                  <Text style={styles.buttonText}>−</Text>
-                </TouchableOpacity>
+      {/* Quantity Controls */}
+      <View style={styles.quantityControls}>
+        <TouchableOpacity onPress={() => updateQuantity(item.id, -1)} style={styles.button}>
+          <Text style={styles.buttonText}>−</Text>
+        </TouchableOpacity>
 
-                <Text style={styles.quantity}>{item.quantity}</Text>
+        <Text style={styles.quantity}>{item.quantity}</Text>
 
-                <TouchableOpacity onPress={() => updateQuantity(item.id, 1)} style={styles.button}>
-                  <Text style={styles.buttonText}>+</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-        />
+        <TouchableOpacity onPress={() => updateQuantity(item.id, 1)} style={styles.button}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )}
+/>
+
       )}
 
       <View style={styles.buttonContainer}>
@@ -138,9 +141,25 @@ const styles = StyleSheet.create({
       fontWeight:"bold",
     },
     quantityControls: {
-      flexDirection: "row",
-      alignItems: "center",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between", 
+        minWidth: 130,
+        gap: 20,
+        fontWeight: "bold" 
+      },
+      button: {
+        backgroundColor: "#27ae60",
+        paddingVertical: 8,  
+        paddingHorizontal: 12,
+        borderRadius: 6,  
+        alignItems: "center",
+        justifyContent: "center",
+        marginHorizontal: 5,  
+        width: 40,  
+        height: 40,  
     },
+      
     button2: {
       flex: 1,
       backgroundColor: "#27ae60",
@@ -158,14 +177,17 @@ const styles = StyleSheet.create({
       marginHorizontal: 5,
     },
     buttonText: {
-      color: "white",
+      color: "black",
       fontSize: 16,
       fontWeight: "bold",
       textAlign: "center",
     },
     quantity: {
-      fontSize: 16,
-      fontWeight: "bold",
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "center",
+        minWidth: 30, 
+        textAlignVertical: "center",
     },
     buttonContainer: {
       flexDirection: "row",

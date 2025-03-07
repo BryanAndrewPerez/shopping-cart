@@ -28,7 +28,7 @@ const App = () => {
   const [cart, setCart] = useState<Product[]>([]); // Manage cart state in App
 
   return (
-    <View style = {{flex:1}}>
+    
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{headerLeft: () => null}}>
@@ -42,7 +42,7 @@ const App = () => {
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
-    </View>
+    
   );
 };
 
