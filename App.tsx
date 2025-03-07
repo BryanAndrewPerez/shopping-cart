@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator, StackScreenProps } from "@react-navigation/stack";
+import Home from "./components/HomePage";
+import Cart from "./components/Cart";
+import Checkout from "components/Checkout";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+// Define the navigation parameters for each screen
+export type RootStackParamList = {
+  Home: undefined;
+  Cart: undefined;
+};
+
+// Define stack navigator
+const Stack = createStackNavigator<RootStackParamList>();
+
+// Define Product type
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  const [cart, setCart] = useState<Product[]>([]); // Manage cart state in App
+
+  return (
+    <View style = {{flex:1}}>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" options={{headerLeft: () => null}}>
+          {(props) => <Home {...props} cart={cart} setCart={setCart} />}
+        </Stack.Screen>
+        <Stack.Screen name="Cart">
+          {(props) => <Cart {...props} cart={cart} setCart={setCart} />}
+        </Stack.Screen>
+        <Stack.Screen name="Checkout">
+          {(props) => <Checkout {...props} cart={cart} setCart={setCart} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+    </View>
+  );
+};
+
+  
+export default App;
